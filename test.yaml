@@ -1,0 +1,38 @@
+name: Run Tests
+
+# PR을 올리거나 main 브랜치에 push할 때 자동 실행
+# GitHub 레포 → Settings → Branches → Branch protection rules 에서 "Require status checks to pass before merging" 을 켜면 테스트 실패 시 머지 버튼이 비활성화됩니다.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 09_testing: 기초 pytest 예제 (순수 함수 + TestClient)
+      - name: Run 09 tests
+        run: pytest 09_testing/ --tb=short
+
+      # 10_chat_ui_with_OpenAI_pytest: 실무형 아키텍처 테스트
+      # - cd로 먼저 이동: app.* 임포트 경로 및 pyproject.toml 설정이 정상 동작
+      # - OpenAI는 Mock으로 교체되어 있으므로 실제 API 키 불필요
+      - name: Run 10 tests
+        run: |
+          cd 10_chat_ui_with_OpenAI_pytest
+          pytest tests/ --tb=short
+        env:
+          OPENAI_API_KEY: test-dummy-key 

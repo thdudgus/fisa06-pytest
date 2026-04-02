@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+# 기본 수집 패턴(test_*.py)을 확장해 숫자로 시작하는 파일도 수집한다
+# 파일명에 test가 들어가는 파일만 test파일로 인식합니다.
+# python_functions = ["test_*"] 덕분에 test_ 로 시작하는 함수만 실행되므로
+# 같은 파일 안의 add(), divide() 같은 일반 함수는 실행되지 않는다
+python_files = ["*.py"]
+python_functions = ["test_*"]
