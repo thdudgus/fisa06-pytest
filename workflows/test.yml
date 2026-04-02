@@ -25,14 +25,8 @@ jobs:
 
       # 09_testing: 기초 pytest 예제 (순수 함수 + TestClient)
       - name: Run 09 tests
-        run: pytest 09_testing/ --tb=short
+        run: pytest ./ --tb=short
 
       # 10_chat_ui_with_OpenAI_pytest: 실무형 아키텍처 테스트
       # - cd로 먼저 이동: app.* 임포트 경로 및 pyproject.toml 설정이 정상 동작
       # - OpenAI는 Mock으로 교체되어 있으므로 실제 API 키 불필요
-      - name: Run 10 tests
-        run: |
-          cd 10_chat_ui_with_OpenAI_pytest
-          pytest tests/ --tb=short
-        env:
-          OPENAI_API_KEY: test-dummy-key 
